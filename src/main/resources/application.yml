@@ -1,0 +1,25 @@
+# Default app configs - default profile is dev
+spring:
+  jpa:
+    show-sql: true
+    hibernate.ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties.hibernate.format_sql: true
+  h2:
+    console.enabled: true
+      #path: /h2-console
+  datasource:
+    url: jdbc:h2:mem:devdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    date-format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+    time-zone: Europe/Berlin
+  liquibase.enabled: false
+
+
+loggin:
+  pattern:
+    console: "%d{yyy-MM-dd HH:mm:ss.SSS} [thread:%thread] [level:%p] - %c{2} - %m %ex{10}%n"

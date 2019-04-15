@@ -1,0 +1,95 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext 
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 
+                   http://www.liquibase.org/xml/ns/dbchangelog 
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="lucianomda (generated)" id="1555259102622-1">
+        <createSequence sequenceName="HIBERNATE_SEQUENCE"/>
+    </changeSet>
+    <changeSet author="lucianomda (generated)" id="1555259102622-2">
+        <createTable tableName="CATEGORY">
+            <column name="ID" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="CONSTRAINT_3"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="DATE_CREATED" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="LAST_UPDATED" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PARENT_ID" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucianomda (generated)" id="1555259102622-3">
+        <createTable tableName="PRODUCT">
+            <column name="ID" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="CONSTRAINT_1"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="DATE_CREATED" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="LAST_UPDATED" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CURRENCY_CODE" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRICE" type="DECIMAL(11, 2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucianomda (generated)" id="1555259102622-4">
+        <createTable tableName="PRODUCT_CATEGORIES">
+            <column name="PRODUCT_ID" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="CONSTRAINT_5"/>
+            </column>
+            <column name="CATEGORIES_ID" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="CONSTRAINT_5"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucianomda (generated)" id="1555259102622-5">
+        <createIndex indexName="FK2Y94SVPMQTTX80MSHYNY85WQR_INDEX_3" tableName="CATEGORY">
+            <column name="PARENT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lucianomda (generated)" id="1555259102622-6">
+        <createIndex indexName="FK86PFOMAPGVXB87X9NNXUC0PDJ_INDEX_5" tableName="PRODUCT_CATEGORIES">
+            <column name="CATEGORIES_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lucianomda (generated)" id="1555259102622-7">
+        <createIndex indexName="FKPPC5S0F38PGB35A32DLGYHORC_INDEX_5" tableName="PRODUCT_CATEGORIES">
+            <column name="PRODUCT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lucianomda (generated)" id="1555259102622-8">
+        <addForeignKeyConstraint baseColumnNames="PARENT_ID" baseTableName="CATEGORY"
+                                 constraintName="FK2Y94SVPMQTTX80MSHYNY85WQR" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="ID" referencedTableName="CATEGORY" validate="true"/>
+    </changeSet>
+    <changeSet author="lucianomda (generated)" id="1555259102622-9">
+        <addForeignKeyConstraint baseColumnNames="CATEGORIES_ID" baseTableName="PRODUCT_CATEGORIES"
+                                 constraintName="FK86PFOMAPGVXB87X9NNXUC0PDJ" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="ID" referencedTableName="CATEGORY" validate="true"/>
+    </changeSet>
+    <changeSet author="lucianomda (generated)" id="1555259102622-10">
+        <addForeignKeyConstraint baseColumnNames="PRODUCT_ID" baseTableName="PRODUCT_CATEGORIES"
+                                 constraintName="FKPPC5S0F38PGB35A32DLGYHORC" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="ID" referencedTableName="PRODUCT" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
