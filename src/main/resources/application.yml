@@ -2,7 +2,7 @@
 spring:
   jpa:
     show-sql: true
-    hibernate.ddl-auto: create-drop
+    hibernate.ddl-auto: none
     database-platform: org.hibernate.dialect.H2Dialect
     properties.hibernate.format_sql: true
   h2:
@@ -14,10 +14,15 @@ spring:
     username: sa
     password:
   jackson:
+    mapper.accept-case-insensitive-enums: true
+    default-property-inclusion: non_null
+    deserialization.fail-on-unknown-properties: false
     property-naming-strategy: SNAKE_CASE
     date-format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
     time-zone: Europe/Berlin
-  liquibase.enabled: false
+  liquibase:
+      enabled: true
+      change-log: classpath:/db/changelog/changelog-master.yml
 
 
 loggin:

@@ -1,5 +1,6 @@
 package com.lucianomda.rakuten.productapi.controller;
 
+import com.google.common.base.Preconditions;
 import com.lucianomda.rakuten.productapi.controller.model.ProductCreateRequest;
 import com.lucianomda.rakuten.productapi.controller.model.ProductCreateResponse;
 import com.lucianomda.rakuten.productapi.controller.model.ProductGetResponse;
@@ -33,20 +34,20 @@ public class ProductController {
 
 	@PostMapping(path = "/products")
 	public ResponseEntity<ProductCreateResponse> create(
-			@RequestBody @Valid ProductCreateRequest product
+			@RequestBody @Valid ProductCreateRequest productCreateRequest
 	) {
 
-		com.lucianomda.rakuten.productapi.service.model.Product productBean =
+		com.lucianomda.rakuten.productapi.service.model.Product product =
 				com.lucianomda.rakuten.productapi.service.model.Product.builder()
-						.name(product.getName())
-						.categoryIds(new HashSet<>(product.getCategoryIds()))
-						.price(product.getPrice())
-						.currencyCode(product.getCurrencyCode())
+						.name(productCreateRequest.getName())
+						.categoryIds(new HashSet<>(productCreateRequest.getCategoryIds()))
+						.price(productCreateRequest.getPrice())
+						.currencyCode(productCreateRequest.getCurrencyCode())
 						.build();
 
-		productService.create(productBean);
+		productService.create(product);
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(ProductCreateResponse.builder().id(productBean.getId())
+		return ResponseEntity.status(HttpStatus.CREATED).body(ProductCreateResponse.builder().id(product.getId())
 				.build());
 	}
 
@@ -60,6 +61,7 @@ public class ProductController {
 	@GetMapping(path = "products/{productId}")
 	public ResponseEntity<ProductGetResponse> get(@PathVariable(name = "productId") @Min(1) long id) {
 		Product product = productService.getById(id);
+		Preconditions.checkArgument(product != null, "Invalid product id %s.", id);
 
 		return ResponseEntity.ok(ProductGetResponse.builder()
 				.id(product.getId())

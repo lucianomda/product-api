@@ -12,7 +12,7 @@
     </changeSet>
     <changeSet author="lucianomda (generated)" id="1555259102622-2">
         <createTable tableName="CATEGORY">
-            <column name="ID" type="BIGINT">
+            <column name="ID" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="CONSTRAINT_3"/>
             </column>
             <column defaultValueComputed="CURRENT_TIMESTAMP" name="DATE_CREATED" type="TIMESTAMP">
@@ -29,7 +29,7 @@
     </changeSet>
     <changeSet author="lucianomda (generated)" id="1555259102622-3">
         <createTable tableName="PRODUCT">
-            <column name="ID" type="BIGINT">
+            <column name="ID" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="CONSTRAINT_1"/>
             </column>
             <column defaultValueComputed="CURRENT_TIMESTAMP" name="DATE_CREATED" type="TIMESTAMP">
