@@ -16,4 +16,8 @@ spring:
 
 server.tomcat.max-threads: 20
 
-
+fixerio:
+  access-key: 62bc67dcbc99f2007bcc430064c7065d
+  # This TTL configuration makes possible to use fixer-io free account in prod as it supports 1000 request per month.
+  # You can force an update
+  cache-eviction-minutes: 45

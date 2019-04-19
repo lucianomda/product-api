@@ -5,6 +5,7 @@ import com.lucianomda.rakuten.productapi.persistence.repository.ProductRepositor
 import com.lucianomda.rakuten.productapi.service.model.Category;
 import com.lucianomda.rakuten.productapi.persistence.repository.CategoryRepository;
 import com.lucianomda.rakuten.productapi.service.mapper.CategoryMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -16,6 +17,7 @@ import java.util.Optional;
 @Service
 @Transactional
 @Validated
+@Slf4j
 public class CategoryServiceImpl implements CategoryService {
 
 	private CategoryRepository categoryRepository;
@@ -31,6 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
 		this.categoryMapper = categoryMapper;
 	}
 
+	@Override
 	public void create(Category category) {
 		com.lucianomda.rakuten.productapi.persistence.model.Category categoryDto = categoryMapper.toDto(category);
 
@@ -41,8 +44,10 @@ public class CategoryServiceImpl implements CategoryService {
 
 		categoryRepository.save(categoryDto);
 		category.setId(categoryDto.getId());
+		log.info("Category created: %s.", category);
 	}
 
+	@Override
 	public Category getById(@Min(1) long id) {
 		Optional<com.lucianomda.rakuten.productapi.persistence.model.Category> optionalCategoryDto =
 				categoryRepository.findById(id);
@@ -55,6 +60,7 @@ public class CategoryServiceImpl implements CategoryService {
 		return category;
 	}
 
+	@Override
 	public void deleteById(@Min(1) long id) {
 		Preconditions.checkArgument(categoryRepository.existsById(id), "Invalid category id %s.", id);
 		Preconditions.checkArgument(categoryRepository.countByParentId(id) == 0,
@@ -63,5 +69,6 @@ public class CategoryServiceImpl implements CategoryService {
 				"Category %s can't be deleted because still have products assigned.", id);
 
 		categoryRepository.deleteById(id);
+		log.info("Category %d deleted.", id);
 	}
 }

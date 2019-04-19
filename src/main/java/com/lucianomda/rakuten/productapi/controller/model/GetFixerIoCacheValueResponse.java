@@ -3,23 +3,20 @@ package com.lucianomda.rakuten.productapi.controller.model;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.Set;
+import java.util.Map;
 
+@Getter
+@Setter
+@EqualsAndHashCode
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
-@Getter @Setter
-public class ProductGetResponse {
+public class GetFixerIoCacheValueResponse {
 
-	private Long id;
-	private Date dateCreated;
-	private Date lastUpdated;
-	private String name;
-	private Set<Long> categoryIds;
-	private BigDecimal price;
-	private String currencyCode;
+	private String base;
+	Map<String, BigDecimal> rates;
 }

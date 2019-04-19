@@ -21,5 +21,6 @@ public class ProductCreateRequest {
 	@NotNull
 	@DecimalMin("0.01")
 	private BigDecimal price;
+	@Size(min = 3, max = 3)
 	private String currencyCode;
 }

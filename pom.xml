@@ -16,6 +16,16 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<junit-jupiter.version>5.4.2</junit-jupiter.version>
+		<mockito.version>2.27.0 </mockito.version>
+		<maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
+		<apache-commons-lang3.version>3.9</apache-commons-lang3.version>
+		<apache-commons-collections.version>4.3</apache-commons-collections.version>
+		<google-guava.version>27.1-jre</google-guava.version>
+		<ben-manes-caffeine.version>2.6.2</ben-manes-caffeine.version>
+		<apache-httpcomponents-httpasyncclient.version>4.1.4</apache-httpcomponents-httpasyncclient.version>
+		<pl-pragmatists-junitparams.version>1.1.1</pl-pragmatists-junitparams.version>
+		<hamcrest-date.version>2.0.5</hamcrest-date.version>
 	</properties>
 
 	<dependencies>
@@ -41,8 +51,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
 		</dependency>
 
 		<!--Liquibase dependencies-->
@@ -53,11 +66,6 @@
 		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.liquibase</groupId>
-			<artifactId>liquibase-maven-plugin</artifactId>
-			<version>3.4.1</version>
 		</dependency>
 
 		<dependency>
@@ -79,20 +87,54 @@
 		<!--utils-->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-configuration2</artifactId>
-			<version>2.4</version>
+			<artifactId>commons-lang3</artifactId>
+			<version>${apache-commons-lang3.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-			<version>3.2.2</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>${apache-commons-collections.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>27.1-jre</version>
+			<version>${google-guava.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.ben-manes.caffeine</groupId>
+			<artifactId>caffeine</artifactId>
+			<version>${ben-manes-caffeine.version}</version>
+		</dependency>
+		<!--Required to enable logs on RestTemplate-->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpasyncclient</artifactId>
+			<version>${apache-httpcomponents-httpasyncclient.version}</version>
+		</dependency>
+
+		<!-- Tests dependencies -->
+		<dependency>
+			<groupId>pl.pragmatists</groupId>
+			<artifactId>JUnitParams</artifactId>
+			<version>${pl-pragmatists-junitparams.version}</version>
+			<scope>test</scope>
 		</dependency>
 
 	</dependencies>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+			</plugin>
+
+		</plugins>
+	</build>
 </project>

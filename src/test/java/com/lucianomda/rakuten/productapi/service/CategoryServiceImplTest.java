@@ -91,6 +91,22 @@ public class CategoryServiceImplTest {
 	}
 
 	@Test
+	public void create_invalidParentId() {
+		Category category = Category.builder().parentId(12L).build();
+		com.lucianomda.rakuten.productapi.persistence.model.Category categoryDto =
+				new com.lucianomda.rakuten.productapi.persistence.model.Category();
+		categoryDto.setParent(null);
+
+		when(categoryMapper.toDto(category)).thenReturn(categoryDto);
+
+		assertThatThrownBy(() -> categoryService.create(category)).isInstanceOf(IllegalArgumentException.class)
+			.hasMessage("Invalid parent Id 12.");
+
+		verify(categoryMapper).toDto(category);
+		verify(categoryRepository, never()).save(categoryDto);
+	}
+
+	@Test
 	public void getById_success() {
 		long id = 1983991;
 		com.lucianomda.rakuten.productapi.persistence.model.Category categoryDto =

@@ -11,8 +11,8 @@ import lombok.Setter;
 @Getter @Setter
 public class ApiErrorException extends RuntimeException {
 
-	private int status;
-	private ErrorCode errorCode;
+	private final int status;
+	private final ErrorCode errorCode;
 
 	public ApiErrorException(int status, ErrorCode errorCode, String message) {
 		this(status, errorCode, message, null);
