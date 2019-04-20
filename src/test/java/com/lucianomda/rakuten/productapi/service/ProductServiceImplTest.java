@@ -165,7 +165,7 @@ public class ProductServiceImplTest {
 		verify(productRepository).save(productDto);
 		verify(currencyExchangeService).convertTo(currencyCode, price, Constants.DEFAULT_CURRENCY_CODE);
 		assertThat(product.getId()).isEqualTo(expectedId);
-		assertThat(product.getCurrencyCode()).isEqualTo(currencyCode);
+		assertThat(product.getCurrencyCode()).isEqualTo(Constants.DEFAULT_CURRENCY_CODE);
 		assertThat(product.getPrice()).isEqualTo(expectedPrice);
 	}
 

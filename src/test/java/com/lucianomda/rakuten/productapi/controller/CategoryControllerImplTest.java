@@ -173,4 +173,16 @@ public class CategoryControllerImplTest {
 
 		verify(categoryService).getById(productId);
 	}
+
+	@Test
+	public void get_invalidId() {
+		long productId = 44123;
+
+		assertThatThrownBy(() -> mockMvc.perform(get("/categories/{productId}", productId)))
+				.isInstanceOf(NestedServletException.class)
+				.hasCauseInstanceOf(IllegalArgumentException.class)
+				.hasFieldOrPropertyWithValue("cause.message", "Invalid category id 44123.");
+
+		verify(categoryService).getById(productId);
+	}
 }

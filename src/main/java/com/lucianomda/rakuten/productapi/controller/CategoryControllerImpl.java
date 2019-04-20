@@ -1,5 +1,6 @@
 package com.lucianomda.rakuten.productapi.controller;
 
+import com.google.common.base.Preconditions;
 import com.lucianomda.rakuten.productapi.controller.model.CategoryCreateRequest;
 import com.lucianomda.rakuten.productapi.controller.model.CategoryCreateResponse;
 import com.lucianomda.rakuten.productapi.controller.model.CategoryGetResponse;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import java.util.HashSet;
 
 @RestController
 @Validated
@@ -32,11 +34,10 @@ public class CategoryControllerImpl implements CategoryController {
 			@RequestBody @Valid CategoryCreateRequest categoryCreateRequest
 	) {
 
-		Category category =
-				Category.builder()
-						.name(categoryCreateRequest.getName())
-						.parentId(categoryCreateRequest.getParentId())
-						.build();
+		Category category = Category.builder()
+				.name(categoryCreateRequest.getName())
+				.parentId(categoryCreateRequest.getParentId())
+				.build();
 
 		categoryService.create(category);
 
@@ -54,13 +55,14 @@ public class CategoryControllerImpl implements CategoryController {
 	@Override
 	public ResponseEntity<CategoryGetResponse> get(@PathVariable(name = "categoryId") @Min(1) long id) {
 		Category category = categoryService.getById(id);
+		Preconditions.checkArgument(category != null, "Invalid category id %s.", id);
 
 		return ResponseEntity.ok(CategoryGetResponse.builder()
 				.id(category.getId())
 				.dateCreated(category.getDateCreated())
 				.lastUpdated(category.getLastUpdated())
 				.name(category.getName())
-				.childrenIds(category.getChildrenIds())
+				.childrenIds(new HashSet<>(category.getChildrenIds()))
 				.parentId(category.getParentId())
 				.build());
 	}

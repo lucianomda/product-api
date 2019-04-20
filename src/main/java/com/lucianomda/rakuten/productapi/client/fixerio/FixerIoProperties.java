@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 public class FixerIoProperties {
 
 	private String host;
+	private int port;
 	private String scheme;
 	private String accessKey;
 	private long cacheEvictionMinutes;

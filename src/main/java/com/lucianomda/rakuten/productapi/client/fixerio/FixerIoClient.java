@@ -27,6 +27,7 @@ public class FixerIoClient {
 		UriComponents uriComponents = UriComponentsBuilder.newInstance()
 				.scheme(fixerIoProperties.getScheme())
 				.host(fixerIoProperties.getHost())
+				.port(fixerIoProperties.getPort())
 				.path("/latest")
 				.queryParam("access_key", fixerIoProperties.getAccessKey())
 				.queryParam("base", base)

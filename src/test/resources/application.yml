@@ -1,4 +1,8 @@
-# Default app configs - default profile is dev
+# Test application properties
+
+server:
+  port: 9995
+
 spring:
   jpa:
     show-sql: true
@@ -35,7 +39,8 @@ logging:
 
 fixerio:
   access-key: test-key
-  host: localhose:9996
+  host: 127.0.0.1
+  port: 9996
   scheme: http
   http-connection-timeout: 3000
   http-read-timeout: 3000

@@ -75,5 +75,4 @@ public class ProductApiApplication {
 	public Ticker caffeineCacheTicker() {
 		return Ticker.systemTicker();
 	}
-
 }

@@ -178,4 +178,16 @@ public class ProductControllerImplTest {
 
 		verify(productService).getById(productId);
 	}
+
+	@Test
+	public void get_invalidId() {
+		long productId = 44123;
+
+		assertThatThrownBy(() -> mockMvc.perform(get("/products/{productId}", productId)))
+				.isInstanceOf(NestedServletException.class)
+				.hasCauseInstanceOf(IllegalArgumentException.class)
+				.hasFieldOrPropertyWithValue("cause.message", "Invalid product id 44123.");
+
+		verify(productService).getById(productId);
+	}
 }

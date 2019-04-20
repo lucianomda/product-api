@@ -50,6 +50,7 @@ public class ProductServiceImpl implements ProductService {
 		if (!supportedCurrencySet.contains(product.getCurrencyCode().toUpperCase())) {
 			product.setPrice(currencyExchangeService.convertTo(product.getCurrencyCode(), product.getPrice(),
 					Constants.DEFAULT_CURRENCY_CODE));
+			product.setCurrencyCode(Constants.DEFAULT_CURRENCY_CODE);
 		}
 
 		product.setPrice(product.getPrice().setScale(2, RoundingMode.HALF_UP));

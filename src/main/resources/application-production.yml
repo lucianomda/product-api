@@ -13,6 +13,10 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:/db/changelog/changelog-master.yml
+  security:
+    user.name: lucianomda
+    user.password: eae.pP
+    user.roles: ADMIN
 
 server.tomcat.max-threads: 20
 
